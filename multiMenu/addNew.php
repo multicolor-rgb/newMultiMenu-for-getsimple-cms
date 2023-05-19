@@ -38,7 +38,7 @@ if (isset($_GET['menuname'])) {
                 <div class="form-group">
 
                     <label for="title"> Title Menu (without space and special characters)</label>
-                    <input type="text" name="title" pattern="[a-zA-Z0-9]+" value="<?php
+                    <input type="text" required name="title" pattern="[a-zA-Z0-9]+" value="<?php
 
                                                                                     if (isset($_GET['menuname'])) {
                                                                                         echo $_GET['menuname'];
