@@ -18,7 +18,7 @@ register_plugin(
 
 
 # add a link in the admin tab 'theme'
-add_action('pages-sidebar', 'createSideMenu', array($thisfile, 'MultiMenu Settings'));
+add_action('pages-sidebar', 'createSideMenu', array($thisfile, 'MultiMenu 🚩'));
 
 
 
@@ -36,7 +36,7 @@ function showMultiMenu()
 	}
 
 
-	echo '<form action="https://www.paypal.com/cgi-bin/webscr" class="moneyshot" method="post" target="_top" style="display:block;text-align:center;">
+	echo '<form style="background:#fafafa;border:solid 1px #ddd;text-align:center;padding:10px;" action="https://www.paypal.com/cgi-bin/webscr" class="moneyshot" method="post" target="_top" style="display:block;text-align:center;">
         <p style="margin:0;padding:0;margin-bottom:10px;">Support my work:)</p>
         <input type="hidden" name="cmd" value="_s-xclick" />
         <input type="hidden" name="hosted_button_id" value="KFZ9MCBUKB7GL" />
@@ -48,86 +48,110 @@ function showMultiMenu()
 
 
 
+add_action('footer', 'hideMenu');
+
+
+function hideMenu()
+{
+
+	echo '<style> #metadata_window p.post-menu{display:none}
+	 #menu-items{display:none !important}
+	 #sb_menumanager{display:none !important}
+	</style>';
+};
 
 
 
-function multiMenu($name, $classUl = '', $classLi = '', $classUlLi = '')
+
+function multiMenu($name)
 {
 
 	global $SITEURL;
 
 	$files = file_get_contents(GSDATAOTHERPATH . 'multiMenu/' . $name . '.json');
+	$class = file_get_contents(GSDATAOTHERPATH . 'multiMenu/folderClass/' . $name . '-class.json');
+	$jsClass = json_decode($class);
 	$reJsonFiles = json_decode($files);
 
 
 
 
 
-	echo '<ul class="' . $classUl . '">';
+	echo '<ul class="' . $jsClass->classul . '">';
 
 
 	global $SITEURL;
 	foreach ($reJsonFiles as $item) {
 
 
+		if (strpos($item->href, 'http') !== false) {
+			$check = GSDATAPAGESPATH . 'index.xml';
+		} else {
+			$check = GSDATAPAGESPATH . $item->href . '.xml';
+		};
 
-		$check = GSDATAPAGESPATH . $item->href . '.xml';
 		$xml = @simplexml_load_file($check);
 
 
 		if (file_exists($check)) {
 
-			if ($xml->parent == '') {
-				$parent = '';
-			} else {
-				$parent = $xml->parent;
-				$parent .= '/';
-			};
-
-
-			echo '<li class="' . $classLi . (isset($item->children) ? 'parent' : '') . '">
+			echo '<li class="' . ($jsClass->active == 'li' ? (return_page_slug() == $item->href ? 'active' : '') : "") . ' ' . $jsClass->classulli . ' ' . (isset($item->children) ? 'parent' : '') . '">
 			<a href="'
 
-				. find_url($item->href, (string)$xml->parent) .
+				. (strpos($item->href, 'http') ?  find_url($item->href, (string)$xml->parent) : $item->href) .
 
 
-				'" target="' . $item->target . '" class="' . (return_page_slug() == $item->href ? 'active' : '') . '">' . $item->text . '</a>';
+				'" target="' . $item->target . '" class="' . ($jsClass->active == 'a' ? (return_page_slug() == $item->href ? 'active' : '') : "") . ' ' . $jsClass->classullia . '">' . $item->text . '</a>';
 
 
 			if (isset($item->children)) {
-				echo '<ul class="' . $classUlLi . '">';
+				echo '<ul class="' . $jsClass->classulliul . '">';
 				foreach ($item->children as $subitem) {
 
-					$checkSub = GSDATAPAGESPATH . $subitem->href . '.xml';
+
+					if (strpos($subitem->href, 'http') !== false) {
+						$checkSub = GSDATAPAGESPATH . 'index.xml';
+					} else {
+						$checkSub = GSDATAPAGESPATH . $subitem->href . '.xml';
+					};
 
 					$xmlSub = @simplexml_load_file($checkSub);
 
-
 					if (file_exists($checkSub)) {
 
-						echo '<li class="' . $classLi . '"><a  class="' . (return_page_slug() == $subitem->href ? 'active' : '') . '" href="' . find_url($subitem->href, (string)$xmlSub->parent) . '" target="' . $subitem->target . '">' . $subitem->text . '</a>';
+						echo '<li class="' . $jsClass->classulliulli . ' ' . ($jsClass->active == 'li' ? (return_page_slug() == $subitem->href ? 'active' : '') : "") . '">
+						<a  class="' . ($jsClass->active == 'a' ? (return_page_slug() == $subitem->href ? 'active' : '') : "") . ' ' . $jsClass->classulliullia . '" 
+						href="' .  (strpos($subitem->href, 'http') ?  find_url($subitem->href, (string)$xmlSub->parent) : $subitem->href) . '" target="' . $subitem->target . '">' . $subitem->text . '</a>';
 					};
 
 					//sub-sub
 
 
 					if (isset($subitem->children)) {
-						echo '<ul class="' . $classUlLi . '">';
+						echo '<ul class="' . $jsClass->classulliul . '">';
 						foreach ($subitem->children as $subsubitem) {
-							$checkSubSub = GSDATAPAGESPATH . $subsubitem->href . '.xml';
+
+							if (strpos($subsubitem->href, 'http') !== false) {
+								$checkSubSub = GSDATAPAGESPATH . 'index.xml';
+							} else {
+								$checkSubSub = GSDATAPAGESPATH . $subsubitem->href . '.xml';
+							};
+
 							$xmlSubSub = @simplexml_load_file($checkSubSub);
 
 
 
 							if (file_exists($checkSubSub)) {
-								echo '<li class="' . $classLi . '">
-								<a href="' .  find_url($subsubitem->href, (string)$xmlSubSub->parent) . '" class="' . (return_page_slug() == $subsubitem->href ? 'active' : '') . '"  target="' . $subsubitem->target . '">' . $subsubitem->text . '</a></li>';
+								echo '<li class="' . $jsClass->classulliulli . ' ' . ($jsClass->active == 'li' ? (return_page_slug() == $subsubitem->href ? 'active' : '') : "") . '">
+								<a href="' . (strpos($subsubitem->href, 'http') ?  find_url($subsubitem->href, (string)$xmlSubSub) : $subsubitem->href) . '"
+								 class="' . ($jsClass->active == 'a' ? (return_page_slug() == $subsub->href ? 'active' : '') : "") . ' ' . $jsClass->classulliullia . '"
+								   target="' . $subsubitem->target . '">' . $subsubitem->text . '</a></li>';
 							};
 						};
 						echo '</ul>';
 					};
 
-					//end
+
 
 
 					echo '</li>';

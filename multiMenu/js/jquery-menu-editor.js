@@ -1080,10 +1080,10 @@ function MenuEditor(idSelector, options) {
             hintCss: { border: '1px dashed #13981D'}, 
             opener: {
                 as: 'html',
-                close: 'X',
-                open: 'Open',
+                close: '<i class="fa-solid fa-folder-open"></i>',
+                open: '<i class="fa-solid fa-folder"></i>',
                 openerCss: {'margin-right': '10px', 'float': 'none'},
-                openerClass: 'btn btn-success btn-sm',
+                openerClass: 'btn btn-info btn-sm',
             },
             placeholderCss: {'background-color': 'gray'},
             ignoreClass: 'clickable',
@@ -1195,7 +1195,7 @@ function MenuEditor(idSelector, options) {
     }
 
     function resetForm() {
-        $form[0].reset();
+       /* $form[0].reset();*/
    
         $updateButton.attr('disabled', true);
         itemEditing = null;
@@ -1217,12 +1217,12 @@ function MenuEditor(idSelector, options) {
 
     function TButtonGroup() {
         var $divbtn = $('<div>').addClass('btn-group float-right');
-        var $btnEdit = TButton({classCss: 'btn btn-primary btn-sm btnEdit', text: settings.labelEdit});
+        var $btnEdit = TButton({classCss: 'btn btn-warning btn-sm btnEdit', text: settings.labelEdit});
         var $btnRemv = TButton({classCss: 'btn btn-danger btn-sm btnRemove', text: settings.labelRemove});
         var $btnUp = TButton({classCss: 'btn btn-secondary btn-sm btnUp btnMove', text: '<i class="fas fa-angle-up clickable"></i>'});
         var $btnDown = TButton({classCss: 'btn btn-secondary btn-sm btnDown btnMove', text: '<i class="fas fa-angle-down clickable"></i>'});
-        var $btnOut = TButton({classCss: 'btn btn-secondary btn-sm btnOut btnMove', text: '<i class="fas fa-level-down-alt clickable"></i>'});
-        var $btnIn = TButton({classCss: 'btn btn-secondary btn-sm btnIn btnMove', text: '<i class="fas fa-level-up-alt clickable"></i>'});
+        var $btnOut = TButton({classCss: 'btn btn-secondary btn-sm btnOut btnMove', text: '<i class="fas fa-arrow-right-from-bracket fa-rotate-180 clickable"></i>'});
+        var $btnIn = TButton({classCss: 'btn btn-secondary btn-sm btnIn btnMove', text: '<i class="fas fa-arrow-right-from-bracket clickable"></i>'});
         $divbtn.append($btnUp).append($btnDown).append($btnIn).append($btnOut).append($btnEdit).append($btnRemv);
         return $divbtn;
     }
