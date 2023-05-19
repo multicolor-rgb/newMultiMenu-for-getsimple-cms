@@ -25,7 +25,24 @@ if (isset($_GET['menuname'])) {
 
     <h3>MultiMenu Creator</h3>
 
+
     <div class="row multiMenu">
+
+    <div class="col-md-12 d-flex align-items-center justify-content-end mb-2">
+    <a href="
+    <?php 
+
+global $SITEURL;
+global $GSADMIN;
+
+echo $SITEURL.$GSADMIN.'/load.php?id=multiMenu';
+
+?>
+    
+    " class="btn btn-primary btn-sm text-light text-decoration-none" style="text-decoration:none;">Back to list</a>
+
+    </div>
+
         <div class="col-md-12">
 
 
@@ -40,11 +57,11 @@ if (isset($_GET['menuname'])) {
                     <label for="title"> Title Menu (without space and special characters)</label>
                     <input type="text" required name="title" pattern="[a-zA-Z0-9]+" value="<?php
 
-                                                                                    if (isset($_GET['menuname'])) {
-                                                                                        echo $_GET['menuname'];
-                                                                                    } else {
-                                                                                        echo '';
-                                                                                    }; ?>" class="form-control mb-2">
+                                                                                            if (isset($_GET['menuname'])) {
+                                                                                                echo $_GET['menuname'];
+                                                                                            } else {
+                                                                                                echo '';
+                                                                                            }; ?>" class="form-control mb-2">
 
                 </div>
             </div>
