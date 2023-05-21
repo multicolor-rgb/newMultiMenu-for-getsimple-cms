@@ -4,21 +4,22 @@
 <div class="multiMenu">
 
 
-    <p class="lead mt-2 border-bottom pb-3">List menus</p>
+    <h3 class="lead mt-2 border-bottom pb-3"><?php echo i18n_r('multiMenu/LISTMENU');?></h3>
 
 
     <div class="multimenu-add bg-light border p-2 mb-2">
-        <a class="btn btn-primary btn-sm text-light text-decoration-none" style="text-decoration:none;" href="<?php echo $SITEURL . $GSADMIN; ?>/load.php?id=multiMenu&addMultiMenu">Add Menu</a>
+        <a class="btn btn-primary btn-sm text-light text-decoration-none" style="text-decoration:none;"
+         href="<?php echo $SITEURL . $GSADMIN; ?>/load.php?id=multiMenu&addMultiMenu"><?php echo i18n_r('multiMenu/ADDMENU');?></a>
     </div>
 
 
     <table class="tables text-center">
 
         <tr>
-            <th class="text-center">name</th>
-            <th class="text-center">code</th>
-            <th class="text-center">edit</th>
-            <th class="text-center">delete</th>
+            <th class="text-center"><?php echo i18n_r('multiMenu/NAME');?></th>
+            <th class="text-center"><?php echo i18n_r('multiMenu/CODE');?></th>
+            <th class="text-center"><?php echo i18n_r('multiMenu/EDIT');?></th>
+            <th class="text-center"><?php echo i18n_r('multiMenu/DELETE');?></th>
         </tr>
 
 
@@ -49,7 +50,7 @@ if (isset($_GET['delthis'])) {
     global $SITEURL;
     global $GSADMIN;
     unlink(GSDATAOTHERPATH . 'multiMenu/' . $_GET['delthis'] . '.json');
-  
+
     echo "
     <script>
 

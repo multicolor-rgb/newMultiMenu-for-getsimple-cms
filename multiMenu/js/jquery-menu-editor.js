@@ -1217,7 +1217,7 @@ function MenuEditor(idSelector, options) {
 
     function TButtonGroup() {
         var $divbtn = $('<div>').addClass('btn-group float-right');
-        var $btnEdit = TButton({classCss: 'btn btn-warning btn-sm btnEdit', text: settings.labelEdit});
+        var $btnEdit = TButton({classCss: 'btn btn-primary btn-sm btnEdit', text: settings.labelEdit});
         var $btnRemv = TButton({classCss: 'btn btn-danger btn-sm btnRemove', text: settings.labelRemove});
         var $btnUp = TButton({classCss: 'btn btn-secondary btn-sm btnUp btnMove', text: '<i class="fas fa-angle-up clickable"></i>'});
         var $btnDown = TButton({classCss: 'btn btn-secondary btn-sm btnDown btnMove', text: '<i class="fas fa-angle-down clickable"></i>'});
